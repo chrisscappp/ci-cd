@@ -19,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:storyBook": "node .scripts/storyBook.ts",
+    "build:storyBook": "node ./scripts/storybook.ts",
     "test:unit": "react-scripts test",
     "test:e2e": "node ./scripts/e2e.test.ts",
     "test:lint": "node ./scripts/lint.ts",
