@@ -1,6 +1,6 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: 
+on:
   push:
     branches: [ master ]
   pull_request:
@@ -33,4 +33,12 @@ jobs:
         run: npm run lint
       - name: test lint
         run: npm run test:lint
-     
+  print:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+    steps:
+      - name: Succesful print
+        run: echo All jobs will completed success! 
+
