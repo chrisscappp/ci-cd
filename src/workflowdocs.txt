@@ -9,3 +9,5 @@ on:
   workflow_dispatch:
   pull_request:
     types: [opened, edited, reopened] - указываем для каждого эвента свои зависимости
+
+cache - ускоряет workflow.
