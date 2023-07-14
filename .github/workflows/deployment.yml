@@ -7,29 +7,6 @@ on:
   pull_request:
     branches: [ master ]
 jobs:
-  init:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 18.x ]
-    steps:
-      - name: Get repository code
-        uses: actions/checkout@v3
-      - name: Starting Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Cache deps
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: node-modules-${{ hashFiles('**package-lock.json') }}
-      - name: install modules 
-        run: npm install
-      - name: build project
-        run: npm run build
-      - name: build storyBook
-        run: npm run build:storyBook
   testing:
     runs-on: ubuntu-latest
     strategy:
