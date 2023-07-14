@@ -8,10 +8,11 @@ on:
     branches: [ master ]
 jobs:
   init:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [ 18.x ]
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Get repository code
         uses: actions/checkout@v3
@@ -31,10 +32,11 @@ jobs:
       - name: build storyBook
         run: npm run build:storyBook
   testing:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [ 18.x ]
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Get repository code
         uses: actions/checkout@v3
