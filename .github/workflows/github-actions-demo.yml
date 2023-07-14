@@ -18,28 +18,32 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: install modules 
+      - name: Install modules 
         run: npm install
-      - name: build project
+      - name: Build project
         run: npm run build
-      - name: build storyBook
+      - name: Build storyBook
         run: npm run build:storyBook
-      - name: unit test
-        run: npm run test:unit
-      - name: e2e test
-        run: npm run test:e2e
-      - name: format
-        run: npm run format
-      - name: lint
-        run: npm run lint
-      - name: test lint
-        run: npm run test:lint
-  print:
+  testing:
     runs-on: ubuntu-latest
     needs: init
     strategy:
       matrix:
         node-version: [ 18.x ]
+    steps:
+      - name: Unit test
+        run: npm run test:unit
+      - name: e2e test
+        run: npm run test:e2e
+      - name: Format prelint
+        run: npm run format
+      - name: lint
+        run: npm run lint
+      - name: Test lint
+        run: npm run test:lint
+  print:
+    runs-on: ubuntu-latest
+    needs: testing
     steps:
       - name: Succesful print
         run: echo All jobs will completed success! 
