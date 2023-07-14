@@ -2,7 +2,7 @@ const Counter = () => {
     return (
         <>
             <div className="krot">
-                her
+                her countera
             </div>  
         </>
     )

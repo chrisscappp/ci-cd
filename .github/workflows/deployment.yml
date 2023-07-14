@@ -19,12 +19,36 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Cache deps
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: node-modules-${{ hashFiles('**package-lock.json') }}
       - name: install modules 
         run: npm install
       - name: build project
         run: npm run build
       - name: build storyBook
         run: npm run build:storyBook
+  testing:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v3
+      - name: Starting Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Cache deps
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: node-modules-${{ hashFiles('**package-lock.json') }}
+      - name: install modules 
+        run: npm install
       - name: unit test
         run: npm run test:unit
       - name: e2e test
@@ -35,11 +59,10 @@ jobs:
         run: npm run lint
       - name: test lint
         run: npm run test:lint
-
   print:
     runs-on: ubuntu-latest
-    needs: init
+    needs: testing
     steps:
       - name: Succesful print
-        run: echo All jobs will completed success! 
+        run: echo All jobs will be completed success! 
 
