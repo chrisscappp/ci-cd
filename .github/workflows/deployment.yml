@@ -10,7 +10,7 @@ jobs:
   init:
     strategy:
       matrix:
-        node-version: [ 18.x ]
+        node-version: [ 18.x, 17.x ]
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -26,7 +26,7 @@ jobs:
           path: ~/.npm
           key: node-modules-${{ hashFiles('**package-lock.json') }}
       - name: install modules 
-        run: npm install
+        run: npm ci
       - name: build project
         run: npm run build
       - name: build storyBook
@@ -34,7 +34,7 @@ jobs:
   testing:
     strategy:
       matrix:
-        node-version: [ 18.x ]
+        node-version: [ 18.x, 17.x ]
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -50,7 +50,7 @@ jobs:
           path: ~/.npm
           key: node-modules-${{ hashFiles('**package-lock.json') }}
       - name: install modules 
-        run: npm install
+        run: npm ci
       - name: unit test
         run: npm run test:unit
       - name: e2e test
@@ -63,7 +63,7 @@ jobs:
         run: npm run test:lint
   print:
     runs-on: ubuntu-latest
-    needs: testing
+    needs: [init, testing]
     steps:
       - name: Succesful print
         run: echo All jobs will be completed success! 

@@ -8,7 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 18.x ]
+        node-version: [ 18.x, 17.x ]
     steps:
+      - name: Print workflow msg
+        run: echo Print github object
       - name: Print git obj
         run: echo "${{ toJSON(github.event) }}"
