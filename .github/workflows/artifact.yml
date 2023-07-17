@@ -1,5 +1,8 @@
 name: Build
 on: [push, workflow_dispatch]
+env:
+  SUCCESS: All jobs were be runned success!
+  FAILED: Oops... Some kind of job were be runned failed
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,4 +26,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build-files
+  print:
+    needs: [build, deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print message
+        run: echo ${{ env.SUCCESS }}
 
